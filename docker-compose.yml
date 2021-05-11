@@ -1,0 +1,64 @@
+version: "3"
+services:
+  mongo1:
+    hostname: mongo1
+    container_name: localmongo1
+    image: mongo:3.6.23-xenial
+    expose:
+    - 27017
+    ports:
+      - 27011:27017
+    restart: always
+    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0" ]
+  mongo2:
+    hostname: mongo2
+    container_name: localmongo2
+    image: mongo:3.6.23-xenial
+    expose:
+    - 27017
+    ports:
+    - 27012:27017
+    restart: always
+    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0" ]
+  mongo3:
+    hostname: mongo3
+    container_name: localmongo3
+    image: mongo:3.6.23-xenial
+    expose:
+    - 27017
+    ports:
+    - 27013:27017
+    restart: always
+    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0" ]
+  exporter1:
+    hostname: exporter1
+    container_name: mongo_exporter1
+    image: noenv/mongo-exporter
+    expose:
+    - 9110
+    ports:
+    - 9110:9123
+    restart: always
+    entrypoint: ["mongodb_exporter", "--web.listen-address=:9110", "--mongodb.uri=mongodb://127.0.0.1:27017"]
+
+  exporter2:
+    hostname: exporter2
+    container_name: mongo_exporter2
+    image: noenv/mongo-exporter
+    expose:
+    - 9111
+    ports:
+    - 9111:9123
+    restart: always
+    entrypoint: ["mongodb_exporter", "--web.listen-address=:9111", "--mongodb.uri=mongodb://127.0.0.1:27017"]
+
+  exporter3:
+    hostname: exporter3
+    container_name: mongo_exporter3
+    image: noenv/mongo-exporter
+    expose:
+    - 9112
+    ports:
+    - 9112:9123
+    restart: always
+    entrypoint: ["mongodb_exporter", "--web.listen-address=:9113", "--mongodb.uri=mongodb://127.0.0.1:27017"]
