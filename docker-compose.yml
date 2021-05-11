@@ -35,30 +35,30 @@ services:
     container_name: mongo_exporter1
     image: noenv/mongo-exporter
     expose:
-    - 9110
+    - 9123
     ports:
     - 9110:9123
     restart: always
-    entrypoint: ["mongodb_exporter", "--web.listen-address=:9110", "--mongodb.uri=mongodb://127.0.0.1:27017"]
+    entrypoint: ["mongodb_exporter", "--web.listen-address=:9110", "--mongodb.uri=mongodb://mongodb_exporter:password@172.17.0.1:27011"]
 
   exporter2:
     hostname: exporter2
     container_name: mongo_exporter2
     image: noenv/mongo-exporter
     expose:
-    - 9111
+    - 9123
     ports:
     - 9111:9123
     restart: always
-    entrypoint: ["mongodb_exporter", "--web.listen-address=:9111", "--mongodb.uri=mongodb://127.0.0.1:27017"]
+    entrypoint: ["mongodb_exporter", "--web.listen-address=:9111", "--mongodb.uri=mongodb://mongodb_exporter:password@172.17.0.1:27012"]
 
   exporter3:
     hostname: exporter3
     container_name: mongo_exporter3
     image: noenv/mongo-exporter
     expose:
-    - 9112
+    - 9123
     ports:
     - 9112:9123
     restart: always
-    entrypoint: ["mongodb_exporter", "--web.listen-address=:9113", "--mongodb.uri=mongodb://127.0.0.1:27017"]
+    entrypoint: ["mongodb_exporter", "--web.listen-address=:9112", "--mongodb.uri=mongodb://mongodb_exporter:password@172.17.0.1:27013"]

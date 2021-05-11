@@ -12,7 +12,7 @@ The following is a list of situations that we want to practice running through:
 
 ## Next Steps
 
-- automate setup of admin users for the mongodb_exporter to use
+- automate setup of admin users for the mongodb_exporter to use (just use mongodb_exporter:password to make it simple)
 - automate connecting from the exporters to the respective mongodb instances using the credentials generated
 - add a prom/prometheus container that scrapes the metrics from the exporters
 - add a grafana container that uses the prometheus server as a data source
