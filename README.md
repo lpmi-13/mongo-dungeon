@@ -10,6 +10,16 @@ The following is a list of situations that we want to practice running through:
 - we need to restart the entire mongo process, but with the flag to not build the index (this is version dependent, so maybe we won't keep this scenario)
 - etc. 
 
+## Next Steps
+
+- automate setup of admin users for the mongodb_exporter to use
+- automate connecting from the exporters to the respective mongodb instances using the credentials generated
+- add a prom/prometheus container that scrapes the metrics from the exporters
+- add a grafana container that uses the prometheus server as a data source
+- try to scale this to maybe 3-5 replicasets (that should be feasible on a modern laptop)
+- get a start script that randomizes which scenario is triggered
+- create a web UI that contains links to the dashboards, some fake alerts, and information about how to connect to the mongo clusters
+
 ## Architecture
 
 We would usually run the mongodb_exporter in the same VM as the mongo process, but since we're going to try and use containers, we're just going to have one of the containers run the exporter, and point that at the container running the mongod process.
@@ -21,3 +31,5 @@ We will also have one prometheus container that will communicate with the export
 TOTAL CONTAINERS: 8
 
 Eventually, we may want some sort of application server that fires off reads/writes and can be set to trigger some of the scenarios above on a predictable schedule (eg, we want to simulate a traffic spike to mongo, then see what happens in grafana and manually fail over to a secondary), but the first goal is just to get the replicasets reporting metrics through to grafana.
+
+Additionally, since some scenarios might want us to actually restart the mongod process, we may either need to look at using VMs or somehow run the mongod process not as the first process in the containers.
